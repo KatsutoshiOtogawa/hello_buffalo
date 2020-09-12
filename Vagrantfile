@@ -115,6 +115,8 @@ Vagrant.configure("2") do |config|
     systemctl enable postgresql
     systemctl start postgresql
     su - postgres -c "psql -c 'CREATE DATABASE hello_buffalo_development'"
+    su - postgres -c "psql -c 'CREATE DATABASE hello_buffalo_test'"
+    su - postgres -c "psql -c 'CREATE DATABASE hello_buffalo_production'"
 
     # vagrantのホストOSとゲストOSのリアルタイムのファイル同期の機能を使うために必要。カーネルのビルドなので要再起動。
     # カーネルのビルド後にguest Aditionがインストールできるようになる
