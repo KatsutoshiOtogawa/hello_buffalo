@@ -74,7 +74,8 @@ Vagrant.configure("2") do |config|
 
     # golangのインストール、GOPATH設定
     dnf install -y golang
-    su - vagrant -c 'echo "export GOPATH=/home/vagrant/.go" >> .bash_profile'
+    export GOPATH=/home/vagrant/.go
+    su - vagrant -c 'echo "export GOPATH=$GOPATH" >> .bash_profile'
 
     # gofishインストール、設定
     dnf install -y git # gofishの内部で使うため。
@@ -83,6 +84,8 @@ Vagrant.configure("2") do |config|
 
     # buffaloのインストール
     su - vagrant -c "gofish install buffalo"
+    # buffaloは$GOPATH/binをPATHの中に入れる必要があるため、実行
+    su - vagrant -c 'echo "export PATH=$PATH:$GOPATH/bin" >> .bash_profile'
 
     # SELinux,firewalldの初期状態の確認
     echo SELinux status is ...
